@@ -1,11 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FOOTER_LINKS, COMPANY_MISSION } from '../constants';
-<<<<<<< HEAD
 import { XIcon, LinkedInIcon, FacebookIcon, GmailIcon, InstagramIcon, MicrosoftIcon, GithubIcon, DiscordIcon } from './icons'; // Updated to GmailIcon
-=======
-import { XIcon, LinkedInIcon, FacebookIcon } from './icons'; // Updated to XIcon
->>>>>>> eefc3d953f59a23fd287bb7d411fee6ef5656a93
 
 const Footer: React.FC = () => {
   return (
@@ -75,7 +71,6 @@ const Footer: React.FC = () => {
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-nexusbyte-accent-green transition-colors" aria-label="Visit our Facebook page">
               <FacebookIcon className="h-6 w-6" />
             </a>
-<<<<<<< HEAD
             <a href="https://mail.google.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-nexusbyte-accent-green transition-colors" aria-label="Visit Gmail">
               <GmailIcon className="h-6 w-6" />
             </a>
@@ -91,8 +86,6 @@ const Footer: React.FC = () => {
             <a href="https://discord.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-nexusbyte-accent-green transition-colors" aria-label="Visit Discord">
               <DiscordIcon className="h-6 w-6" />
             </a>
-=======
->>>>>>> eefc3d953f59a23fd287bb7d411fee6ef5656a93
           </div>
         </div>
       </div>

@@ -97,9 +97,12 @@ export interface Candidate {
 export interface GenerateContentResponseWithGrounding {
   text: string;
   candidates?: Candidate[];
+<<<<<<< HEAD
 }
 
 export interface SuggestedDomain {
   name: string;
   tld: string; // e.g. ".com", ".io"
+=======
+>>>>>>> eefc3d953f59a23fd287bb7d411fee6ef5656a93
 }

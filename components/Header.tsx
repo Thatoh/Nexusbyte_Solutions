@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> eefc3d953f59a23fd287bb7d411fee6ef5656a93
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { NAV_ITEMS } from '../constants';
@@ -17,22 +20,38 @@ const Header: React.FC = () => {
   const [closeMenuTimer, setCloseMenuTimer] = useState<number | null>(null);
 
   const closeMegaMenuCompletely = () => {
+<<<<<<< HEAD
     if (closeMenuTimer) window.clearTimeout(closeMenuTimer);
+=======
+    if (closeMenuTimer) clearTimeout(closeMenuTimer);
+>>>>>>> eefc3d953f59a23fd287bb7d411fee6ef5656a93
     setCloseMenuTimer(null);
     setActiveMegaMenu(null);
   };
 
   const handleMenuCloseIntent = () => {
+<<<<<<< HEAD
     if (closeMenuTimer) window.clearTimeout(closeMenuTimer);
     const timerId = window.setTimeout(() => {
       setActiveMegaMenu(null); 
     }, 250); 
     setCloseMenuTimer(timerId);
+=======
+    if (closeMenuTimer) clearTimeout(closeMenuTimer);
+    const timer = setTimeout(() => {
+      setActiveMegaMenu(null); 
+    }, 250); 
+    setCloseMenuTimer(timer);
+>>>>>>> eefc3d953f59a23fd287bb7d411fee6ef5656a93
   };
 
   const cancelMenuCloseIntent = () => {
     if (closeMenuTimer) {
+<<<<<<< HEAD
       window.clearTimeout(closeMenuTimer);
+=======
+      clearTimeout(closeMenuTimer);
+>>>>>>> eefc3d953f59a23fd287bb7d411fee6ef5656a93
       setCloseMenuTimer(null);
     }
   };
@@ -65,7 +84,11 @@ const Header: React.FC = () => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+<<<<<<< HEAD
       if (closeMenuTimer) window.clearTimeout(closeMenuTimer); 
+=======
+      if (closeMenuTimer) clearTimeout(closeMenuTimer); 
+>>>>>>> eefc3d953f59a23fd287bb7d411fee6ef5656a93
     };
   }, [closeMenuTimer]);
 

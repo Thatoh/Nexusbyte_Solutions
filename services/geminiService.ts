@@ -1,17 +1,33 @@
+<<<<<<< HEAD
 
 import { GoogleGenAI, Chat, GenerateContentResponse, Part, Content } from "@google/genai";
 import { ChatMessage, GroundingChunk, GenerateContentResponseWithGrounding, SuggestedDomain } from '../types';
+=======
+import { GoogleGenAI, Chat, GenerateContentResponse, Part } from "@google/genai";
+import { ChatMessage, GroundingChunk, GenerateContentResponseWithGrounding } from '../types';
+>>>>>>> eefc3d953f59a23fd287bb7d411fee6ef5656a93
 
 const API_KEY = process.env.API_KEY;
 
 if (!API_KEY) {
+<<<<<<< HEAD
   console.warn("API_KEY environment variable not set. Chatbot and AI suggestion functionalities will be limited or non-functional.");
+=======
+  console.warn("API_KEY environment variable not set. Chatbot functionality will be limited or non-functional.");
+>>>>>>> eefc3d953f59a23fd287bb7d411fee6ef5656a93
 }
 
 const ai = new GoogleGenAI({ apiKey: API_KEY! }); // API_KEY can be undefined if not set.
 
+<<<<<<< HEAD
 const SYSTEM_INSTRUCTION_CHATBOT = "You are NexusByte's helpful AI assistant. Your name is Nova. Be friendly, professional, and informative about NexusByte's ICT solutions, AI, cloud services, cybersecurity, and hybrid work environments. If asked about specific pricing or highly detailed technical specifications not commonly available, suggest contacting a NexusByte sales representative or support. If asked a question that may benefit from recent information (like current events, news, or rapidly evolving tech topics), use Google Search to ground your answer and provide up-to-date details. Always cite your sources if you use search by listing the URLs. When providing URLs, ensure they are accessible and clearly indicate they are sources.";
 
+=======
+const SYSTEM_INSTRUCTION = "You are NexusByte's helpful AI assistant. Your name is Nova. Be friendly, professional, and informative about NexusByte's ICT solutions, AI, cloud services, cybersecurity, and hybrid work environments. If asked about specific pricing or highly detailed technical specifications not commonly available, suggest contacting a NexusByte sales representative or support. If asked a question that may benefit from recent information (like current events, news, or rapidly evolving tech topics), use Google Search to ground your answer and provide up-to-date details. Always cite your sources if you use search by listing the URLs. When providing URLs, ensure they are accessible and clearly indicate they are sources.";
+
+// Chat instance is now created per session/request in generateChatResponse and streamChatResponse
+// to properly include history.
+>>>>>>> eefc3d953f59a23fd287bb7d411fee6ef5656a93
 
 export const generateChatResponse = async (
   prompt: string,
@@ -21,15 +37,26 @@ export const generateChatResponse = async (
     return { text: "I'm sorry, my connection to the knowledge base is currently unavailable. Please ensure the API key is configured and try again later." };
   }
 
+<<<<<<< HEAD
   const geminiHistory: Content[] = history.map(msg => ({
+=======
+  const geminiHistory: Part[] = history.map(msg => ({
+>>>>>>> eefc3d953f59a23fd287bb7d411fee6ef5656a93
     role: msg.sender === 'user' ? 'user' : 'model',
     parts: [{ text: msg.text }],
   }));
   
+<<<<<<< HEAD
   const chat = ai.chats.create({ 
       model: 'gemini-2.5-flash-preview-04-17',
       config: {
         systemInstruction: SYSTEM_INSTRUCTION_CHATBOT,
+=======
+  const chat = ai.chats.create({ // Create chat instance with current history
+      model: 'gemini-2.5-flash-preview-04-17',
+      config: {
+        systemInstruction: SYSTEM_INSTRUCTION,
+>>>>>>> eefc3d953f59a23fd287bb7d411fee6ef5656a93
         tools: [{googleSearch: {}}]
       },
       history: geminiHistory,
@@ -65,7 +92,11 @@ export const streamChatResponse = async function* (
     return;
   }
   
+<<<<<<< HEAD
   const geminiHistory: Content[] = history.map(msg => ({
+=======
+  const geminiHistory: Part[] = history.map(msg => ({
+>>>>>>> eefc3d953f59a23fd287bb7d411fee6ef5656a93
     role: msg.sender === 'user' ? 'user' : 'model',
     parts: [{ text: msg.text }],
   }));
@@ -73,7 +104,11 @@ export const streamChatResponse = async function* (
   const currentChatInstance = ai.chats.create({
       model: 'gemini-2.5-flash-preview-04-17',
       config: {
+<<<<<<< HEAD
         systemInstruction: SYSTEM_INSTRUCTION_CHATBOT,
+=======
+        systemInstruction: SYSTEM_INSTRUCTION,
+>>>>>>> eefc3d953f59a23fd287bb7d411fee6ef5656a93
         tools: [{googleSearch: {}}]
       },
       history: geminiHistory,
@@ -84,16 +119,32 @@ export const streamChatResponse = async function* (
 
   try {
     const stream = await currentChatInstance.sendMessageStream({ message: prompt });
+<<<<<<< HEAD
     for await (const chunk of stream) { 
       const currentTextChunk = chunk.text;
       fullResponseText += currentTextChunk; 
       
       const typedChunk = chunk as unknown as GenerateContentResponseWithGrounding;
+=======
+    for await (const chunk of stream) { // chunk is GenerateContentResponse
+      const currentTextChunk = chunk.text;
+      fullResponseText += currentTextChunk; // Accumulate text for consistency if needed, though usually stream implies partial updates.
+      
+      const typedChunk = chunk as unknown as GenerateContentResponseWithGrounding;
+      // Grounding metadata usually comes with later chunks or the final one.
+>>>>>>> eefc3d953f59a23fd287bb7d411fee6ef5656a93
       if (typedChunk.candidates?.[0]?.groundingMetadata?.groundingChunks) {
         finalGroundingChunks = typedChunk.candidates[0].groundingMetadata.groundingChunks;
       }
       yield { text: currentTextChunk, groundingChunks: finalGroundingChunks };
     }
+<<<<<<< HEAD
+=======
+    // After the loop, yield a final signal with accumulated (or final) data if needed,
+    // or just ensure the last chunk from the loop had all info.
+    // The current structure yields per chunk, so the client accumulates.
+    // Add a final chunk signal for the client to know the stream ended successfully.
+>>>>>>> eefc3d953f59a23fd287bb7d411fee6ef5656a93
     yield { text: '', groundingChunks: finalGroundingChunks, isFinalChunk: true };
 
   } catch (error) {
@@ -106,6 +157,7 @@ export const streamChatResponse = async function* (
     }
     yield { error: errorMessage, isFinalChunk: true };
   }
+<<<<<<< HEAD
 };
 
 export const generateDomainSuggestions = async (
@@ -180,3 +232,6 @@ Now, generate suggestions for '${baseDomain}' which is '${availabilityStatus}'.`
     return null;
   }
 };
+=======
+};
+>>>>>>> eefc3d953f59a23fd287bb7d411fee6ef5656a93
